@@ -11,12 +11,17 @@
     <modules>
         <module>dispather</module>
         <module>common-rabbitmq</module>
+        <module>node</module>
+        <module>common-jpa</module>
+        <module>rest-service</module>
+        <module>common-untils</module>
     </modules>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <telegrambot.starter.version>6.1.0</telegrambot.starter.version>
     </properties>
 
     <parent>
@@ -38,6 +43,12 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         </dependencies>
 
 </project>
