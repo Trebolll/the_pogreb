@@ -11,13 +11,14 @@ import ru.nsk.service.UpdateProducer;
 @Log4j
 public class UpdateProducerImpl implements UpdateProducer {
     private final RabbitTemplate rabbitTemplate;
+
     public UpdateProducerImpl(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
     public void produce(String rabbitQueue, Update update) {
-      log.debug(update.getMessage().getText());
-      rabbitTemplate.convertAndSend(rabbitQueue,update);
+        log.debug(update.getMessage().getText());
+        rabbitTemplate.convertAndSend(rabbitQueue, update);
     }
 }

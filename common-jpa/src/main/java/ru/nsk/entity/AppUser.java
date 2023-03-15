@@ -8,6 +8,7 @@ import ru.nsk.entity.enums.UserState;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = "id")
@@ -17,7 +18,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "app_user")
 public class AppUser {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +26,9 @@ public class AppUser {
     private LocalDateTime firstLoginDate;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String email;
     private Boolean isActive;
     @Enumerated(EnumType.STRING)
-    private UserState userState;
-
+    private UserState state;
 }

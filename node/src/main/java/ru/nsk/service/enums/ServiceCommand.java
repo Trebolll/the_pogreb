@@ -1,16 +1,14 @@
 package ru.nsk.service.enums;
 
-public  enum ServiceCommand {
-
+public enum ServiceCommand {
     HELP("/help"),
     REGISTRATION("/registration"),
     CANCEL("/cancel"),
     START("/start");
-
     private final String value;
 
-    ServiceCommand(String cmd) {
-        this.value = cmd;
+    ServiceCommand(String value) {
+        this.value = value;
     }
 
     @Override
@@ -18,12 +16,12 @@ public  enum ServiceCommand {
         return value;
     }
 
-  public static ServiceCommand fromValue(String v){
-        for(ServiceCommand c: ServiceCommand.values()){
-            if(c.value.equals(v)){
+    public static ServiceCommand fromValue(String v) {
+        for (ServiceCommand c: ServiceCommand.values()) {
+            if (c.value.equals(v)) {
                 return c;
             }
         }
         return null;
-  }
+    }
 }

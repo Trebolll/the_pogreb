@@ -7,6 +7,7 @@ import ru.nsk.service.ProducerService;
 
 import static ru.nsk.RabbitQueue.ANSWER_MESSAGE;
 
+
 @Service
 public class ProduceServiceImpl implements ProducerService {
     private final RabbitTemplate rabbitTemplate;
@@ -16,7 +17,7 @@ public class ProduceServiceImpl implements ProducerService {
     }
 
     @Override
-    public void produceAnswer(SendMessage sendMessage) {
-       rabbitTemplate.convertAndSend(ANSWER_MESSAGE, sendMessage);
+    public void producerAnswer(SendMessage sendMessage) {
+        rabbitTemplate.convertAndSend(ANSWER_MESSAGE, sendMessage);
     }
 }

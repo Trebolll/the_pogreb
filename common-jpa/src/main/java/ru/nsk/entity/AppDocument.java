@@ -1,25 +1,25 @@
-package ru.nsk.entity.enums;
+package ru.nsk.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = "id")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "app_photo")
-public class AppPhoto {
+@Table(name = "app_document")
+public class AppDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String telegramFileId;
+    private String docName;
     @OneToOne
     private BinaryContent binaryContent;
-    private Integer fileSize;
-
+    private String mimeType;
+    private Long fileSize;
 }

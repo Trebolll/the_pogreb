@@ -12,25 +12,23 @@ import static ru.nsk.RabbitQueue.*;
 @Service
 @Log4j
 public class ConsumerServiceImpl implements ConsumerService {
-
     private final MainService mainService;
 
     public ConsumerServiceImpl(MainService mainService) {
         this.mainService = mainService;
     }
 
-
     @Override
     @RabbitListener(queues = TEXT_MESSAGE_UPDATE)
     public void consumeTextMessageUpdates(Update update) {
-     log.debug("NODE: Text message is received");
-     mainService.processTextMessage(update);
+        log.debug("NODE: Text message is received");
+        mainService.processTextMessage(update);
     }
 
     @Override
     @RabbitListener(queues = DOC_MESSAGE_UPDATE)
     public void consumeDocMessageUpdates(Update update) {
-        log.debug("NODE: Document message is received");
+        log.debug("NODE: Doc message is received");
         mainService.processDocMessage(update);
     }
 

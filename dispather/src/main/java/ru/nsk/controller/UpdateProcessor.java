@@ -14,57 +14,55 @@ import static ru.nsk.RabbitQueue.*;
 
 @Component
 @Log4j
-public class UpdateController {
-
+public class UpdateProcessor {
     private TelegramBot telegramBot;
-    private  final MessageUtils messageUtils;
-    private final  UpdateProducer updateProducer;
+    private final MessageUtils messageUtils;
+    private final UpdateProducer updateProducer;
 
-    public UpdateController(MessageUtils messageUtils, UpdateProducer updateProducer) {
+    public UpdateProcessor(MessageUtils messageUtils, UpdateProducer updateProducer) {
         this.messageUtils = messageUtils;
         this.updateProducer = updateProducer;
     }
 
-    public void registerBot(TelegramBot telegramBot){
+    public void registerBot(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
     }
 
-    public void processUpdate(Update update){
-        if(update == null){
+    public void processUpdate(Update update) {
+        if (update == null) {
             log.error("Received update is null");
             return;
         }
 
-        if(update.hasMessage()){
-            distributeMessageByType(update);
+        if (update.hasMessage()) {
+            distributeMessagesByType(update);
         } else {
-            log.error("Received unsupported message type");
+            log.error("Unsupported message type is received: " + update);
         }
-
     }
 
-    private void distributeMessageByType(Update update) {
+    private void distributeMessagesByType(Update update) {
         var message = update.getMessage();
-        if(message.hasText()){
+        if (message.hasText()) {
             processTextMessage(update);
         } else if (message.hasDocument()) {
-            processDocumentMessage(update);
+            processDocMessage(update);
         } else if (message.hasPhoto()) {
             processPhotoMessage(update);
-        }else {
+        } else {
             setUnsupportedMessageTypeView(update);
         }
-
     }
+
     private void setUnsupportedMessageTypeView(Update update) {
         var sendMessage = messageUtils.generateSendMessageWithText(update,
-                "Неподдерживаемый тип сообщения");
+                "Неподдерживаемый тип сообщения!");
         setView(sendMessage);
     }
 
     private void setFileIsReceivedView(Update update) {
         var sendMessage = messageUtils.generateSendMessageWithText(update,
-                "Файл получен. Обрабатываем");
+                "Файл получен! Обрабатывается...");
         setView(sendMessage);
     }
 
@@ -77,16 +75,13 @@ public class UpdateController {
         setFileIsReceivedView(update);
     }
 
-
-    private void processDocumentMessage(Update update) {
+    private void processDocMessage(Update update) {
         updateProducer.produce(DOC_MESSAGE_UPDATE, update);
         setFileIsReceivedView(update);
     }
 
-
     private void processTextMessage(Update update) {
         updateProducer.produce(TEXT_MESSAGE_UPDATE, update);
-        setFileIsReceivedView(update);
     }
-
 }
+
